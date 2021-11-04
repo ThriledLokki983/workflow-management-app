@@ -1,11 +1,13 @@
 /**
- * Bringing in all modules and packages that will be needed to ge thte server up and
+ * Bringing in all modules and packages that will be needed
+ * to get the server up and
  * running 💨
  */
 import errorHandler from 'errorhandler'
 import mongoose from 'mongoose'
 import app from './app'
-import { MONGODB_URI, DB_PASSWORD } from './utils/secrets/secrets'
+import { MONGODB_URI, DB_PASSWORD } from './utils/config/secrets'
+import help from './utils/config/helper'
 
 /**
  * This will use the url from the .env file and replace the <password> with the actual
@@ -49,16 +51,8 @@ mongoose
  * Global Safety Net for all unhandled errors 🧨
  * Safely handling all other unhandled errors that may occur in any ASYNC
  * Code that we couldn't catch
+ * Take these steps to make sure that the server is shut down gracefully
  */
-process.on('uncaughtException', (err: Error) => {
-  console.log('UNCAUGHT EXCEPTION!: Shutting down.server..')
-  console.log(err.name, err.message)
-  client.close(() => {
-    process.exit(1)
-  })
-})
-
-/**
- * Error Handler. Provides full stack - remove for production
- */
-app.use(errorHandler())
+process.on('uncaughtException', help.handleUncaughtException)
+process.on('unhandledRejection', help.handleRejectedPromise)
+process.on('SIGINT', help.closeMongoConnection)

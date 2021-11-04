@@ -3,14 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Bringing in all modules and packages that will be needed to ge thte server up and
- * running 💨
- */
-const errorhandler_1 = __importDefault(require("errorhandler"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
-const secrets_1 = require("./utils/secrets/secrets");
+const secrets_1 = require("./utils/config/secrets");
+const helper_1 = __importDefault(require("./utils/config/helper"));
 /**
  * This will use the url from the .env file and replace the <password> with the actual
  * password to allow MongoDB Atlas to grant us permission to connect to the
@@ -47,16 +43,9 @@ mongoose_1.default
  * Global Safety Net for all unhandled errors 🧨
  * Safely handling all other unhandled errors that may occur in any ASYNC
  * Code that we couldn't catch
+ * Take these steps to make sure that the server is shut down gracefully
  */
-process.on('uncaughtException', (err) => {
-    console.log('UNCAUGHT EXCEPTION!: Shutting down.server..');
-    console.log(err.name, err.message);
-    client.close(() => {
-        process.exit(1);
-    });
-});
-/**
- * Error Handler. Provides full stack - remove for production
- */
-app_1.default.use(errorhandler_1.default());
+process.on('uncaughtException', helper_1.default.handleUncaughtException);
+process.on('unhandledRejection', helper_1.default.handleRejectedPromise);
+process.on('SIGINT', helper_1.default.closeMongoConnection);
 //# sourceMappingURL=server.js.map

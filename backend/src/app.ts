@@ -10,6 +10,7 @@ import hpp from 'hpp'
 import lusca from 'lusca'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import helper from './utils/config/helper'
 
 import compression from 'compression'
 import { NextFunction, Request, Response } from 'express'
@@ -79,5 +80,22 @@ app.use('/api/v1/tasks', (req, res) => {
     status: 'sucess',
   })
 })
+
+// global route error handler
+app.all('*', (req: Request, _: Response, next: NextFunction) => {
+  next(
+    new helper.ApplicationError(
+      `The requested endpoint: ${req.originalUrl} is not on this server`,
+      404
+    )
+  )
+})
+
+/**
+ * This will help us to handle all the errors that we might encounter
+ * it will be called if the error is not handled by the above middlewares
+ * and will provide us with a nice error message  😜😎
+ */
+app.use(helper.globalErrorHandler)
 
 export default app

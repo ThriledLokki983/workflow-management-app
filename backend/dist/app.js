@@ -15,6 +15,7 @@ const hpp_1 = __importDefault(require("hpp"));
 const lusca_1 = __importDefault(require("lusca"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
+const helper_1 = __importDefault(require("./utils/config/helper"));
 const compression_1 = __importDefault(require("compression"));
 /**
  * Configure the app to take all keys saved in the .env file and make it accessible to the
@@ -70,5 +71,15 @@ app.use('/api/v1/tasks', (req, res) => {
         status: 'sucess',
     });
 });
+// global route error handler
+app.all('*', (req, _, next) => {
+    next(new helper_1.default.ApplicationError(`The requested endpoint: ${req.originalUrl} is not on this server`, 404));
+});
+/**
+ * This will help us to handle all the errors that we might encounter
+ * it will be called if the error is not handled by the above middlewares
+ * and will provide us with a nice error message  😜😎
+ */
+app.use(helper_1.default.globalErrorHandler);
 exports.default = app;
 //# sourceMappingURL=app.js.map
