@@ -18,6 +18,9 @@ export const JWT_SECRET = process.env['JWT_SECRET'] as string
 export const MONGODB_URI = process.env['MONGODB_URI'] as string
 export const MONGODB_LOCAL = process.env['MONGODB_URI_LOCAL'] as string
 export const DB_PASSWORD = process.env['MONGO_PASSWORD'] as string
+export const GOOGLE_CLIENT_ID = process.env['GOOGLE_CLIENT_ID'] as string
+export const GOOGLE_CLIENT_SECRET = process.env['GOOGLE_CLIENT_SECRET'] as string
+export const GOOGLE_CALLBACK_URL = process.env['GOOGLE_CALLBACK_URL'] as string
 
 if (!JWT_SECRET) {
   logger.error('No client secret. Set JWT_SECRET environment variable.')

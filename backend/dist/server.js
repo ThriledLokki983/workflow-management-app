@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const secrets_1 = require("./utils/config/secrets");
-const helper_1 = __importDefault(require("./utils/config/helper"));
+const errorConfig_1 = __importDefault(require("./utils/config/errorConfig"));
 /**
  * This will use the url from the .env file and replace the <password> with the actual
  * password to allow MongoDB Atlas to grant us permission to connect to the
@@ -45,7 +45,7 @@ mongoose_1.default
  * Code that we couldn't catch
  * Take these steps to make sure that the server is shut down gracefully
  */
-process.on('uncaughtException', helper_1.default.handleUncaughtException);
-process.on('unhandledRejection', helper_1.default.handleRejectedPromise);
-process.on('SIGINT', helper_1.default.closeMongoConnection);
+process.on('uncaughtException', errorConfig_1.default.handleUncaughtException);
+process.on('unhandledRejection', errorConfig_1.default.handleRejectedPromise);
+process.on('SIGINT', errorConfig_1.default.closeMongoConnection);
 //# sourceMappingURL=server.js.map

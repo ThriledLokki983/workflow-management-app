@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DB_PASSWORD = exports.MONGODB_LOCAL = exports.MONGODB_URI = exports.JWT_SECRET = exports.ENVIRONMENT = void 0;
+exports.GOOGLE_CALLBACK_URL = exports.GOOGLE_CLIENT_SECRET = exports.GOOGLE_CLIENT_ID = exports.DB_PASSWORD = exports.MONGODB_LOCAL = exports.MONGODB_URI = exports.JWT_SECRET = exports.ENVIRONMENT = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 const logger_1 = __importDefault(require("./logger"));
@@ -21,6 +21,9 @@ exports.JWT_SECRET = process.env['JWT_SECRET'];
 exports.MONGODB_URI = process.env['MONGODB_URI'];
 exports.MONGODB_LOCAL = process.env['MONGODB_URI_LOCAL'];
 exports.DB_PASSWORD = process.env['MONGO_PASSWORD'];
+exports.GOOGLE_CLIENT_ID = process.env['GOOGLE_CLIENT_ID'];
+exports.GOOGLE_CLIENT_SECRET = process.env['GOOGLE_CLIENT_SECRET'];
+exports.GOOGLE_CALLBACK_URL = process.env['GOOGLE_CALLBACK_URL'];
 if (!exports.JWT_SECRET) {
     logger_1.default.error('No client secret. Set JWT_SECRET environment variable.');
     process.exit(1);

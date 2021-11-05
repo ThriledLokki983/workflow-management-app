@@ -7,7 +7,7 @@ import errorHandler from 'errorhandler'
 import mongoose from 'mongoose'
 import app from './app'
 import { MONGODB_URI, DB_PASSWORD } from './utils/config/secrets'
-import help from './utils/config/helper'
+import help from './utils/config/errorConfig'
 
 /**
  * This will use the url from the .env file and replace the <password> with the actual

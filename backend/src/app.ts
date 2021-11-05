@@ -10,7 +10,7 @@ import hpp from 'hpp'
 import lusca from 'lusca'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import helper from './utils/config/helper'
+import helper from './utils/config/errorConfig'
 
 import compression from 'compression'
 import { NextFunction, Request, Response } from 'express'
